@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Tracker from './components/Tracker';
+import MonthlyView from './components/MonthlyView';
+import GlobalStyles from './globalStyles';
+
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+const ToggleButton = styled.button`
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
 
 function App() {
+  const [view, setView] = useState('tracker');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <GlobalStyles />
+      {view === 'tracker' ? <Tracker /> : <MonthlyView />}
+      <ToggleButton onClick={() => setView(view === 'tracker' ? 'monthly' : 'tracker')}>
+        {view === 'tracker' ? 'View Monthly Summary' : 'Back to Tracker'}
+      </ToggleButton>
+    </Main>
   );
 }
 
